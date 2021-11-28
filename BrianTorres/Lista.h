@@ -16,5 +16,8 @@ public:
 	void SumarListas();
 	//No requerido.
 	void Mostrar();
+	
+	//Validacion.
+	void Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3);
 };
 
