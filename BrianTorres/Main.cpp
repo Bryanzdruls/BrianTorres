@@ -6,6 +6,8 @@
 
 using namespace std;
 void menuListas();
+void menuTrabajo();
+void casosEliminar(int, Lista*, Lista*, Lista*);
 
 int main()
 {
@@ -13,9 +15,9 @@ int main()
 	Lista* L1 = new Lista();
 	Lista* L2 = new Lista();
 	Lista* L3 = new Lista();
-	int opc, dec, dato;
+	int opc, decTrabajo, dato;
 	opc = 0;
-	dec = 0;
+	decTrabajo = 0;
 	dato = 0;
 	do
 	{
@@ -23,146 +25,149 @@ int main()
 		cin >> opc;
 		switch (opc)
 		{
-		case 1:
+		case 1:// Insertar Inicio.
 			cout << "Desea ingresar un dato para cual lista: " << endl;
 			cout << "1. Lista 1." << endl;
 			cout << "2. Lista 2." << endl;
-			cin >> dec;
-			if (dec == 1)
+			cin >> decTrabajo;
+			cout << "Ingrese un dato: " << endl;
+			cin >> dato;
+			switch (decTrabajo)
 			{
-				cout << "Ingrese un dato: " << endl;
-				cin >> dato;
-				L1->InsertarInicio(dato);
-			}
-			else
-			{
-				if (dec == 2)
-				{
-					cout << "Ingrese un dato: " << endl;
-					cin >> dato;
+				case 1:
+					L1->InsertarInicio(dato);
+					break;
+				case 2:
 					L2->InsertarInicio(dato);
-				}
+					break;
+				default:
+					cout << "El dato no equivale a una lista." << endl;
+					break;
 			}
 			break;
-		case 2:
+		case 2://Insertar Final.
 			cout << "Desea ingresar un dato para cual lista: " << endl;
 			cout << "1. Lista 1." << endl;
 			cout << "2. Lista 2." << endl;
-			cin >> dec;
-			if (dec == 1)
+			cin >> decTrabajo;
+			cout << "Ingrese un dato: " << endl;
+			cin >> dato;
+			switch (decTrabajo)
 			{
-				cout << "Ingrese un dato: " << endl;
-				cin >> dato;
-				L1->InsertarFinal(dato);
-			}
-			else
-			{
-				if (dec == 2)
-				{
-					cout << "Ingrese un dato: " << endl;
-					cin >> dato;
+				case 1:
+					L1->InsertarFinal(dato);
+					break;
+				case 2:
 					L2->InsertarFinal(dato);
-				}
+					break;
+				default:
+					cout << "El dato no equivale a una lista." << endl;
+					break;
 			}
 			break;
-		case 3:
+		case 3://Insertar Ordenado.
 			cout << "Desea ingresar un dato para cual lista: " << endl;
 			cout << "1. Lista 1." << endl;
 			cout << "2. Lista 2." << endl;
-			cin >> dec;
-			if (dec == 1)
+			cin >> decTrabajo;
+			cout << "Ingrese un dato: " << endl;
+			cin >> dato;
+			switch (decTrabajo)
 			{
-				cout << "Ingrese un dato: " << endl;
-				cin >> dato;
-				L1->InsertarOrdenado(dato);
-			}
-			else
-			{
-				if (dec == 2)
-				{
-					cout << "Ingrese un dato: " << endl;
-					cin >> dato;
-					L2->InsertarOrdenado(dato);
-				}
-			}
-			break;
-		case 4:
-			cout << "Cual lista desea ordenar:" << endl;
-			cout << "1. Lista 1." << endl;
-			cout << "2. Lista 2." << endl;
-			cout << "3. Lista 3." << endl;
-			cin >> dec;
-			if (dec == 1)
-			{
-				cout << "Se ordeno la lista 1." << endl;
-				L1->Ordenar();
-			}
-			else
-			{
-				if (dec == 2)
-				{
-					cout << "Se ordeno la lista 2." << endl;
+				case 1:
+					L1->Ordenar();
+					L1->InsertarOrdenado(dato);
+					break;
+				case 2:
 					L2->Ordenar();
-				}
-				else
-				{
-					if (dec == 3)
-					{
-						cout << "Se ordeno la lista 3." << endl;
-						L3->Ordenar();
-					}
-				}
+					L2->InsertarOrdenado(dato);
+					break;
+				default:
+					cout << "El dato no equivale a una lista." << endl;
+					break;
 			}
 			break;
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7://Validar cuando la lista este vacia. con switch.
-			cout << "Cual lista desea imprimir" << endl;
-			cout << "1. Lista 1." << endl;
-			cout << "2. Lista 2." << endl;
-			cout << "3. Lista 3." << endl;
-			cout << "4. Todas las listas."<< endl;
-			cin >> dec;
-			if (dec == 1)
+		case 4://Ordenar
+			menuTrabajo();
+			cin >> decTrabajo;			
+			switch (decTrabajo)
 			{
-				cout << "Lista 1:" << endl;
-				L1->Mostrar();
+				case 1:				
+					L1->Ordenar();
+					cout << "Se ordeno la lista 1." << endl;
+					break;
+				case 2:
+					L2->Ordenar();
+					cout << "Se ordeno la lista 2." << endl;				
+					break;
+				case 3:
+					L3->Ordenar();
+					cout << "Se ordeno la lista 3." << endl;				
+					break;
+				default:
+					cout << "El dato no equivale a una lista."<<endl;
+					break;
 			}
-			else
+			break;			
+		case 5://Buscar.
+			menuTrabajo();
+			cin >> decTrabajo;
+			cout << "Ingrese el dato: " << endl;
+			cin >> dato;
+			switch (decTrabajo)
 			{
-				if (dec == 2)
-				{
-					cout << "Lista 2:" << endl;
-					L2->Mostrar();
-				}
-				else
-				{
-					if (dec == 3)
-					{
-						cout << "Lista 3:" << endl;
-						L3->Mostrar();
-					}
-					else
-					{
-						if (dec == 4)
-						{
-							L1->Validacion(L1, L2, L3);
-						}
-					}
-				}
+			case 1:
+				L1->Buscar(dato);
+				break;
+			case 2:
+				L2->Buscar(dato);
+				break;
+			case 3:
+				L3->Buscar(dato);
+				break;
+			default:
+				cout << "El dato no equivale a una lista.";
+				break;
+			}
+
+			break;
+		case 6://Reemplazar dato
+			menuTrabajo();
+			cin >> decTrabajo;
+			cout << "Ingrese el dato: " << endl;
+			cin >> dato;
+			switch (decTrabajo)
+			{
+			case 1:
+				L1->Reemplazar(dato);
+				break;
+			case 2:
+				L2->Reemplazar(dato);
+				break;
+			case 3:
+				L3->Reemplazar(dato);
+				break;
+			default:
+				cout << "El dato no equivale a una lista.";
+				break;
 			}
 			break;
-		case 8:
+		case 7://Validar cuando la lista este vacia. con switch. //Mostrar
+			menuTrabajo();
+			cin >> decTrabajo;
+			L1->Validacion(L1, L2, L3, decTrabajo);
 			break;
-		case 9:
+		case 8://Sumar listas
+			L3->SumarListas(L1, L2, L3);
+			break;
+		case 9://Eliminar
+			menuTrabajo();
+			cin >> decTrabajo;
+			casosEliminar(decTrabajo, L1, L2, L3);
 			break;
 		case 10:
 			cout << "Gracias por utilizar mi programa!" << endl;
 			break;
-	
 		default:
 			break;
 		}
@@ -189,4 +194,30 @@ void menuListas()
 	cout << "10. Salir." << endl;
 	cout << "\t ¿Que desea hacer?\n";
 }
+void menuTrabajo()
+{
+	cout << "Sobre cual lista desea trabajar" << endl;
+	cout << "1. Lista 1." << endl;
+	cout << "2. Lista 2." << endl;
+	cout << "3. Lista 3." << endl;
+	cout << "4. Todas las listas." << endl;
+}
 
+
+void casosEliminar(int dec, Lista * lista1, Lista* lista2, Lista* lista3)
+{
+	switch (dec)
+	{
+	case 1:
+		lista1->Eliminar();
+		break;
+	case 2:
+		lista2->Eliminar();
+		break;
+	case 3:
+		lista3->Eliminar();
+		break;
+	default:
+		break;
+	}
+}
