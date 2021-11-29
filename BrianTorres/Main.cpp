@@ -182,16 +182,18 @@ int main()
 void menuListas()
 {
 	cout << "\n \t Lista Doble Circular\n\n";
+	cout << "\n \t Listas S.A \n\n";
 	cout << "1. Insertar al Inicio. " << endl;
 	cout << "2. Insertar al Final. " << endl;
 	cout << "3. Insertar al Ordenado. " << endl;
 	cout << "4. Ordenar lista. " << endl;
-	cout << "5. Buscar dato. " << endl;
+	cout << "5. Buscar Y/O eliminar un dato. " << endl;
 	cout << "6. Reemplazar dato. " << endl;
 	cout << "7. Mostrar Listas. " << endl;
 	cout << "8. Sumar listas. " << endl;
-	cout << "9. Eliminar. " << endl;
+	cout << "9. Eliminar lista completa. " << endl;
 	cout << "10. Salir." << endl;
+	cout << "\t\t\t\t \t\t\t\t\tCreado en conjunto por: brian y juan jose \n\n";
 	cout << "\t ¿Que desea hacer?\n";
 }
 void menuTrabajo()

@@ -60,7 +60,23 @@ void Lista::InsertarFinal(int d)
 
 void Lista::InsertarOrdenado(int d)
 {
-
+	Nodo* x = new Nodo(), *p=head, *q;
+	x->SetDato(d);
+	p->Setld(x);
+	do
+	{
+		q = p;
+		p = p->Getld();
+	} while ((p!= head )&& p->GetDato() <d);
+	if (head==p)
+	{
+		head = x;
+	}
+	else
+	{
+		q->Setld(x);
+	}
+	x->Setld(p);
 }
 
 void Lista::Ordenar()
@@ -88,35 +104,66 @@ void Lista::Ordenar()
 
 void Lista::Buscar(int d)
 {
-	Nodo* p = head;
+	Nodo* p = head, * q = head->Getld();
+	string dec;
+	int noencontrado= 0;
 	do
 	{
-		cout << p->GetDato();
 		if (p->GetDato() == d)
 		{
+			noencontrado = 1;
 			cout << "\tEl dato ha sido encontrado." << endl;
+			cout << "Desea eliminar el dato (Si, No)" << endl;
+			cin >> dec;
+			if (dec == "Si" || dec == "si" || dec == "SI" || dec == "sI")
+			{				
+				q->Setli(p->Getli());
+				p = p->Getli();
+				p->Setld(q);
+				p = p->Getld();	
+				if (p == head)
+				{
+					cout << "SOLO HAY UN NODO." << endl;
+					p = nullptr;
+					head = nullptr;
+				}
+			}
+			else
+			{
+				q = q->Getld();
+				p = p->Getld();
+			}
 		}
-		p = p->Getld();
-	} while (p != head);
+		else
+		{
+			q = q->Getld();
+			p = p->Getld();
+		}
+	} while (p!=head);
+	if (noencontrado == 0)
+	{
+		cout << "El dato no fue encontrado." << endl;
+	}
 }
 
 void Lista::Reemplazar(int d)
 {
-	int reemplazo = 0;
+	int reemplazo = 0, i=0;
 	Nodo* p = head;
 	Mostrar();
 	do
 	{	
 		if (p->GetDato() == d)
 		{
-			cout << "\tEl dato ha sido encontrado." << endl;
+			i++;
+			cout << "\tEl dato numero "<< i<<" ha sido encontrado." << endl;
 			cout << "Por cual dato lo desea reemplazar: " << endl;
 			cin >> reemplazo;
 			p->SetDato(reemplazo);
 			cout << "El dato ha sido Reemplazado correctamente" << endl;
 		}
 		p = p->Getld();
-	} while (p != head);
+	} while (p != head );
 }
 
 void Lista::Eliminar()
@@ -124,10 +171,10 @@ void Lista::Eliminar()
 	Nodo* p=head;
 	do
 	{
+		p->SetDato(NULL);
 		p = p->Getld();
-		head = nullptr;
-		head = p;
 	} while (p!=head);
+	head = nullptr;
 	cout << "Los datos de la lista se eliminaron correctamente." << endl;
 }
 
@@ -151,18 +198,18 @@ void Lista::SumarListas(Lista *lista1, Lista *lista2, Lista *lista3)
 			}
 			else
 			{
-				if (p == lista1->head)
+				if (p != lista1->head)
 				{
 					lista3->InsertarFinal(p->GetDato());
 					p = p->Getld();
 				}
-				if (q == lista2->head)
+				if (q != lista2->head)
 				{
 					lista3->InsertarFinal(q->GetDato());
 					q = q->Getld();
 				}
 			}
-		} while (p != lista1->head && q != lista2->head);
+		} while (p != lista1->head || q != lista2->head);
 		cout << "Las listas han sido sumadas y almacenadas en la Lista 3." << endl;
 	}
 	else
@@ -176,7 +223,6 @@ void Lista::Mostrar()
 	Nodo* p= head;
 	do
 	{
-		
 		cout << "|" << p->GetDato() << "|";
 		p = p->Getld();
 	}
