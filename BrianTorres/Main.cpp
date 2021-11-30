@@ -15,7 +15,7 @@ int main()
 	Lista* L1 = new Lista();
 	Lista* L2 = new Lista();
 	Lista* L3 = new Lista();
-	int opc, decTrabajo, dato;
+	int opc, decTrabajo, dato, aux=0;
 	opc = 0;
 	decTrabajo = 0;
 	dato = 0;
@@ -90,7 +90,8 @@ int main()
 		case 4://Ordenar
 			menuTrabajo();
 			cin >> decTrabajo;			
-			switch (decTrabajo)
+			aux = L1->Validacion(L1, L2, L3);
+			switch (aux)
 			{
 				case 1:				
 					L1->Ordenar();
@@ -105,7 +106,14 @@ int main()
 					cout << "Se ordeno la lista 3." << endl;				
 					break;
 				default:
-					cout << "El dato no equivale a una lista."<<endl;
+					if (aux == 0)
+					{
+						cout << "no se puede realizar en una lista vacia." << endl;
+					}
+					else
+					{
+						cout << "El dato no equivale a una lista.";
+					}
 					break;
 			}
 			break;			
@@ -114,7 +122,8 @@ int main()
 			cin >> decTrabajo;
 			cout << "Ingrese el dato: " << endl;
 			cin >> dato;
-			switch (decTrabajo)
+			aux = L1->Validacion(L1, L2, L3);
+			switch (aux)
 			{
 			case 1:
 				L1->Buscar(dato);
@@ -126,7 +135,14 @@ int main()
 				L3->Buscar(dato);
 				break;
 			default:
-				cout << "El dato no equivale a una lista.";
+				if (aux == 0)
+				{
+					cout << "no se puede realizar en una lista vacia." << endl;
+				}
+				else
+				{
+					cout << "El dato no equivale a una lista.";
+				}
 				break;
 			}
 
@@ -136,7 +152,8 @@ int main()
 			cin >> decTrabajo;
 			cout << "Ingrese el dato: " << endl;
 			cin >> dato;
-			switch (decTrabajo)
+			aux = L1->Validacion(L1, L2, L3);
+			switch (aux)
 			{
 			case 1:
 				L1->Reemplazar(dato);
@@ -148,14 +165,41 @@ int main()
 				L3->Reemplazar(dato);
 				break;
 			default:
-				cout << "El dato no equivale a una lista.";
+				if(aux == 0)
+				{
+					cout << "no se puede realizar en una lista vacia." << endl;
+				}
+				else
+				{
+					cout << "El dato no equivale a una lista.";
+				}
+				
 				break;
 			}
 			break;
 		case 7://Validar cuando la lista este vacia. con switch. //Mostrar
 			menuTrabajo();
 			cin >> decTrabajo;
-			L1->Validacion(L1, L2, L3, decTrabajo);
+			aux =L1->Validacion(L1, L2, L3);
+			switch (aux)
+			{
+				case 1:
+					L1->Mostrar();
+					break;
+				case 2:
+					L2->Mostrar();
+					break;
+				case 3:
+					L3->Mostrar();
+					break;
+				case 4:
+					L1->Mostrar();
+					L2->Mostrar();
+					L3->Mostrar();
+					break;
+			default:
+				break;
+			}
 			break;
 		case 8://Sumar listas
 			L3->SumarListas(L1, L2, L3);
