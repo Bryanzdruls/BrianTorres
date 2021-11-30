@@ -90,7 +90,7 @@ int main()
 		case 4://Ordenar
 			menuTrabajo();
 			cin >> decTrabajo;			
-			aux = L1->Validacion(L1, L2, L3);
+			aux = L1->Validacion(L1, L2, L3, decTrabajo);
 			switch (aux)
 			{
 				case 1:				
@@ -122,7 +122,7 @@ int main()
 			cin >> decTrabajo;
 			cout << "Ingrese el dato: " << endl;
 			cin >> dato;
-			aux = L1->Validacion(L1, L2, L3);
+			aux = L1->Validacion(L1, L2, L3, decTrabajo);
 			switch (aux)
 			{
 			case 1:
@@ -152,7 +152,7 @@ int main()
 			cin >> decTrabajo;
 			cout << "Ingrese el dato: " << endl;
 			cin >> dato;
-			aux = L1->Validacion(L1, L2, L3);
+			aux = L1->Validacion(L1, L2, L3, decTrabajo);
 			switch (aux)
 			{
 			case 1:
@@ -180,22 +180,31 @@ int main()
 		case 7://Validar cuando la lista este vacia. con switch. //Mostrar
 			menuTrabajo();
 			cin >> decTrabajo;
-			aux =L1->Validacion(L1, L2, L3);
+			aux =L1->Validacion(L1, L2, L3, decTrabajo);
 			switch (aux)
 			{
 				case 1:
+					cout << "Lista 1: " << endl;
 					L1->Mostrar();
 					break;
 				case 2:
+					cout << "Lista 2: " << endl;
 					L2->Mostrar();
 					break;
 				case 3:
+					cout << "Lista 3: " << endl;
 					L3->Mostrar();
 					break;
 				case 4:
+					cout << "Lista 1: " << endl;
 					L1->Mostrar();
+					cout << endl;
+					cout << "Lista 2: " << endl;
 					L2->Mostrar();
+					cout << endl;
+					cout << "Lista 3: " << endl;
 					L3->Mostrar();
+					cout << endl;
 					break;
 			default:
 				break;
@@ -207,7 +216,8 @@ int main()
 		case 9://Eliminar
 			menuTrabajo();
 			cin >> decTrabajo;
-			casosEliminar(decTrabajo, L1, L2, L3);
+			aux = L1->Validacion(L1, L2, L3, decTrabajo);
+			casosEliminar(aux, L1, L2, L3);
 			break;
 		case 10:
 			cout << "Gracias por utilizar mi programa!" << endl;

@@ -18,7 +18,7 @@ public:
 	void Mostrar();
 	
 	//Validacion.
-	int Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3);
+	int Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3, int dec);
 	void ValidacionSuma(Lista* Lista1, Lista* Lista2, Lista* Lista3);
 };
 

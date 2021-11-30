@@ -91,51 +91,57 @@ void Lista::Buscar(int d)
 {
 	Nodo* p = head, * q = head->Getld();
 	string dec;
-	int noencontrado= 0;
+	int noencontrado = 0;
 	do
 	{
 		if (p->GetDato() == d)
 		{
 			noencontrado = 1;
 			cout << "\tEl dato ha sido encontrado." << endl;
-			cout << "Desea eliminar el dato (Si, No)" << endl;
-			cin >> dec;
-			if (dec == "Si" || dec == "si" || dec == "SI" || dec == "sI")
-			{	
-				if (p != head)
+			if (p == head && q == head)
+			{				
+				p->SetDato(0);
+				cout << "SOLO HAY UN NODO." << endl;
+				Eliminar();
+				p = nullptr;
+			}
+			else
+			{
+				cout << "Desea eliminar el dato (Si, No)" << endl;
+				cin >> dec;
+				if (dec == "Si" || dec == "si" || dec == "SI" || dec == "sI")
 				{
-					q->Setli(p->Getli());
-					p = p->Getli();
-					p->Setld(q);
-				}
-				else
-				{
-					if (p == head)
+					if(p == head && q != head)
 					{
-						head = p->Getld();
-						cout << "SOLO HAY UN NODO." << endl;
+						head = q;
 
 						q->Setli(p->Getli());
 						p = p->Getli();
 						p->Setld(q);
-						p = p->Getld();
-						p = nullptr;
-						head = nullptr;
 					}
+					else
+					{
+						if (p != head)
+						{
+							q->Setli(p->Getli());
+							p = p->Getli();
+							p->Setld(q);
+						}
+					}				
 				}
-			}
-			else
-			{
-				q = q->Getld();
-				p = p->Getld();
-			}
+				else
+				{
+					q = q->Getld();
+					p = p->Getld();
+				}
+			}		
 		}
 		else
 		{
 			q = q->Getld();
 			p = p->Getld();
 		}
-	} while (p!=head);
+	} while (p != head || (p==nullptr && q ==nullptr));
 	if (noencontrado == 0)
 	{
 		cout << "El dato no fue encontrado." << endl;
@@ -185,11 +191,11 @@ void Lista::SumarListas(Lista *lista1, Lista *lista2, Lista *lista3)
 	q = lista2->head;
 	bool sumarHead = true;
 	ValidacionSuma(lista1, lista2, lista3);
-	if (p != nullptr && q != nullptr) 
+	if (p != nullptr || q != nullptr) 
 	{
 		do
 		{
-			if (sumarHead == true || (p != lista1->head && q != lista2->head))
+			if ((sumarHead == true || (p != lista1->head && q != lista2->head))&&(p!= nullptr && q!= nullptr))
 			{
 				lista3->InsertarFinal(p->GetDato() + q->GetDato());
 				p = p->Getld();
@@ -198,12 +204,12 @@ void Lista::SumarListas(Lista *lista1, Lista *lista2, Lista *lista3)
 			}
 			else
 			{
-				if (p != lista1->head)
+				if (p != lista1->head || q == nullptr)
 				{
 					lista3->InsertarFinal(p->GetDato());
 					p = p->Getld();
 				}
-				if (q != lista2->head)
+				if (q != lista2->head || p==nullptr)
 				{
 					lista3->InsertarFinal(q->GetDato());
 					q = q->Getld();
@@ -214,22 +220,31 @@ void Lista::SumarListas(Lista *lista1, Lista *lista2, Lista *lista3)
 	}
 	else
 	{
-		cout << "No se pueden sumar listas vacias." << endl;
+		if (p == nullptr && q == nullptr)
+		{
+			cout << "No se pueden sumar listas vacias." << endl;
+		}	
 	}
 }
 // Excluido.
 void Lista::Mostrar()
 {
 	Nodo* p= head;
-	do
+	if(head!= nullptr)
 	{
-		cout << "|" << p->GetDato() << "|";
-		p = p->Getld();
+		do
+		{
+			cout << "|" << p->GetDato() << "|";
+			p = p->Getld();
+		} while (p != head);
+	}	
+	else
+	{
+		cout << "La lista no tiene datos." << endl;
 	}
-	while (p != head);
 }
 
-int Lista::Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3)
+int Lista::Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3, int dec)
 {
 	int aux = 0;
 	if (Lista1->head != nullptr && Lista2->head != nullptr && Lista3->head != nullptr)
@@ -238,29 +253,38 @@ int Lista::Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3)
 	}
 	else
 	{
-		if (Lista1->head == nullptr)
+		if ((Lista1->head == nullptr) && (dec == 1||dec==4))
 		{
 			cout << "Lista 1 vacia." << endl;
 		}
 		else
 		{
-			aux = 1;
+			if (dec == 1 || dec == 4)
+			{
+				aux = dec;
+			}
 		}
-		if (Lista2->head == nullptr)
+		if (Lista2->head == nullptr && (dec == 2||dec==4))
 		{
 			cout << "Lista 2 vacia." << endl;
 		}
 		else
 		{
-			aux = 2;
+			if (dec == 2 || dec == 4)
+			{
+				aux = dec;
+			}
 		}
-		if (Lista3->head == nullptr)
+		if (Lista3->head == nullptr && (dec==3||dec == 4))
 		{
 			cout << "Lista 3 vacia." << endl;
 		}
 		else
 		{
-			aux = 3;
+			if (dec == 3 || dec == 4)
+			{
+				aux = dec;
+			}
 		}
 	}
 	return aux;
@@ -281,28 +305,6 @@ void Lista::ValidacionSuma(Lista* Lista1, Lista* Lista2, Lista* Lista3)
 		if (Lista3->head == nullptr)
 		{
 		
-		}
-	}
-	else
-	{
-		if (Lista1->head != nullptr)
-		{
-			cout << "Lista 1:" << endl;
-			Lista1->Mostrar();
-			cout << endl;
-
-			if (Lista2->head != nullptr)
-			{
-				cout << "Lista 2:" << endl;
-				Lista2->Mostrar();
-				cout << endl;
-				if (Lista3->head != nullptr)
-				{
-					cout << "Lista 3:" << endl;
-					Lista3->Mostrar();
-					cout << endl;
-				}
-			}
 		}
 	}
 }
