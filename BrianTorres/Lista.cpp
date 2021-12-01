@@ -303,14 +303,14 @@ void Lista::Mostrar()
 
 int Lista::Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3, int dec)
 {
-	int aux = 0;
+	int aux = -1;
 	if (Lista1->head != nullptr && Lista2->head != nullptr && Lista3->head != nullptr)
 	{
 		aux = 4;
 	}
 	else
 	{
-		if ((Lista1->head == nullptr) && (dec == 1||dec==4))
+		if ((Lista1->head == nullptr) && (dec == 1))
 		{
 			cout << "Lista 1 vacia." << endl;
 		}
@@ -321,7 +321,7 @@ int Lista::Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3, int dec)
 				aux = dec;
 			}
 		}
-		if (Lista2->head == nullptr && (dec == 2||dec==4))
+		if (Lista2->head == nullptr && (dec == 2))
 		{
 			cout << "Lista 2 vacia." << endl;
 		}
@@ -332,7 +332,7 @@ int Lista::Validacion(Lista* Lista1, Lista* Lista2, Lista* Lista3, int dec)
 				aux = dec;
 			}
 		}
-		if (Lista3->head == nullptr && (dec==3||dec == 4))
+		if (Lista3->head == nullptr && (dec == 3))
 		{
 			cout << "Lista 3 vacia." << endl;
 		}
