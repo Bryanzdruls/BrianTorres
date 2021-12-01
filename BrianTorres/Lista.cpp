@@ -59,32 +59,89 @@ void Lista::InsertarFinal(int d)
 
 void Lista::InsertarOrdenado(int d)
 {
-	Nodo* x = new Nodo(), *p=head, *q = head;
+	int sw = 0;
+	Nodo* p = head, * q = head, * fin = head;
+	Nodo* x = new Nodo();
 	x->SetDato(d);
-	
+	if (head == nullptr)
+	{
+		head = x;
+		head->Setld(x);
+		head->Setli(x);
+	}
+	else
+	{
+		do
+		{
+			fin = head->Getli();
+			if (fin->GetDato() < d && sw == 0)
+			{
+				sw = 1;
+				x->Setld(head);
+				x->Setli(fin);
+				head->Setli(x);
+				fin->Setld(x);
+				cout << "Se inserto el dato correctamente" << endl;
+			}
+			if (d <= p->GetDato() && sw == 0)
+			{
+				sw = 1;
+				if (p == head)
+				{
+					q = head->Getli();
+					x->Setli(q);
+					x->Setld(head);
+					head->Setli(x);
+					head = x;
+					q->Setld(head);
+					p = q;
+					cout << "¡Se inserto el dato correctamente!" << endl;
+				}
+				else
+				{
+					p = p->Getli();
+					p->Setld(x);
+					x->Setli(p);
+					x->Setld(q);
+					q->Setli(x);
+					p = q;
+					cout << "¡¡Se inserto el dato correctamente!!" << endl;
+				}
+			}
+			p = p->Getld();
+			q = q->Getld();
+		} while (p != head);
+	}
 }
 
 void Lista::Ordenar()
 {
 	int aux;
-	Nodo* p = head, *q;
-
-	do
-	{	
-		q = p->Getld();
-		while (q!= head)
+	Nodo* p = head, * q;
+	if (head != nullptr)
+	{
+		do
 		{
-			if (p->GetDato() > q->GetDato())
+			q = p->Getld();
+			while (q != head)
 			{
-				aux = q->GetDato();
-				q->SetDato(p->GetDato());
-				p->SetDato(aux);
+				if (p->GetDato() > q->GetDato())
+				{
+					aux = q->GetDato();
+					q->SetDato(p->GetDato());
+					p->SetDato(aux);
+				}
+				q = q->Getld();
 			}
-			q=q->Getld();
-		}
-		p = p->Getld();
-		q = q->Getld();
-	} while (p!= head);
+			p = p->Getld();
+			q = q->Getld();
+		} while (p != head);
+	}
+	else
+	{
+		cout << "Como vas a ordenar una lista vacia???" << endl;
+	}
+		
 }
 
 void Lista::Buscar(int d)
